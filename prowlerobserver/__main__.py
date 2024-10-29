@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from prowler.lib.check.check import list_services
 from prowlerobserver.lib.service_filter import service_filter
-
+from prowlerobserver.config import scan_time
 
 def get_enabled_regions():
     ec2_client = boto3.client('ec2')
@@ -80,7 +80,7 @@ def run_prowler(services, regions):
                 print(f"Error executing Prowler:\n{error_message}")
 
 def prowlerobserver():
-    minutes = 10
+    minutes = scan_time
     regions = get_enabled_regions()
     while True:
         print(f"Getting services seen in cloudtrail for the last {minutes} minutes for the regions: {regions}")
