@@ -1,8 +1,8 @@
 # ProwlerObserver
 
-ProwlerObserver is a project designed to scan your AWS infrastructure, identifying services associated with events shown in CloudTrail and analyzing the services found within those events.
+ProwlerObserver is a project designed to scan your `AWS` infrastructure, identifying services associated with events shown in CloudTrail and analyzing the services found within those events.
 
-You can configure the scan interval in prowlerobserver/config/config.py by modifying the scan_time variable.
+You can configure the scan interval in `prowlerobserver/config/config.py` by modifying the `scan_time` variable.
 
 ## Prerequisites
 
