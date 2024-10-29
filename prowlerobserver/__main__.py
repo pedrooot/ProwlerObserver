@@ -7,7 +7,14 @@ from prowler.lib.check.check import list_services
 from prowlerobserver.lib.service_filter import service_filter
 from prowlerobserver.config.config import scan_time
 
-def get_enabled_regions():
+def get_enabled_regions() -> list:
+    """
+    Get the enabled regions in the account
+
+    Returns:
+        - list: List of enabled regions
+
+    """
     ec2_client = boto3.client('ec2')
 
     response = ec2_client.describe_regions(AllRegions=False)
@@ -16,7 +23,17 @@ def get_enabled_regions():
     
     return enabled_regions
 
-def get_cloudtrail_services(last_time, regions):
+def get_cloudtrail_services(last_time: int, regions: list) -> list:
+    """
+    Get the services seen in cloudtrail for the last specified minutes
+
+    Args:
+        - last_time (int): Last time in minutes
+        - regions (list): List of regions to check
+    
+    Returns:
+        - list: List of services seen in cloudtrail for the last specified minutes
+    """
     end_time = datetime.now()
     original_last_time_minutes = last_time
     if last_time < 62:
@@ -56,7 +73,14 @@ def get_cloudtrail_services(last_time, regions):
     
     return list(services)
 
-def run_prowler(services, regions):
+def run_prowler(services: list, regions: list):
+    """
+    Run prowler for the services in the regions
+
+    Args:
+        - services (list): List of services
+        - regions (list): List of regions
+    """
     string_services = ""
     for service in services:
         if service in list_services("aws"):
@@ -80,6 +104,9 @@ def run_prowler(services, regions):
                 print(f"Error executing Prowler:\n{error_message}")
 
 def prowlerobserver():
+    """
+    Main function to run the prowler observer
+    """
     minutes = scan_time
     regions = get_enabled_regions()
     while True:
